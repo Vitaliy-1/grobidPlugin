@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+ * @file plugins/generic/grobid/locale/uk_UA/locale.xml
+ *
+ * Copyright (c) 2014-2020 Simon Fraser University Library
+ * Copyright (c) 2003-2020 John Willinsky
+ * Distributed under the GNU GPL v2.
+ *
+ * @brief localization strings
+ *
+  -->
+
+<locale name="uk_UA" full_name="Українська">
+	<message key="plugins.generic.grobid.displayName">Grobid плагін.</message>
+	<message key="plugins.generic.grobid.description">Забезпечує інтегhацію OJS із Grobid для конвертації наукових статей в формат JATS XML.</message>
+	<message key="plugins.generic.grobid.button.parseDocument">Конвертувати за допомогою Grobid</message>
+	<message key="grid.action.process">Конвертувати файл за допомогою Grobid</message>
+</locale>

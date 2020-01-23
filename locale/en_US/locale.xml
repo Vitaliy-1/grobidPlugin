@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+ * @file plugins/generic/grobid/locale/en_US/locale.xml
+ *
+ * Copyright (c) 2014-2020 Simon Fraser University Library
+ * Copyright (c) 2003-2020 John Willinsky
+ * Distributed under the GNU GPL v2.
+ *
+ * @brief localization strings
+ *
+-->
+
+<locale name="en_US" full_name="U.S. English">
+	<message key="plugins.generic.grobid.displayName">Grobid Plugin</message>
+	<message key="plugins.generic.grobid.description">Provides OJS integration with Grobid for transformation of scientific articles to JATS XML.</message>
+	<message key="plugins.generic.grobid.button.parseDocument">Convert with Grobid</message>
+	<message key="grid.action.process">Convert this file with Grobid</message>
+</locale>
