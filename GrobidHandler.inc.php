@@ -56,7 +56,16 @@ class GrobidHandler extends Handler {
 			return DAO::getDataChangedEvent();
 		}
 
+		// TODO Should other checks of the response be performed?
 		$jatsXML = new \DOMDocument();
+		$jatsXML->loadXML($response);
+
+		if (!$this->_checkXML($jatsXML)) {
+			$errorMsg = __('plugins.generic.grobid.msg.responseInvalidXML');
+			$notificationMgr->createTrivialNotification($user->getId(), NOTIFICATION_TYPE_ERROR, array('contents' => $errorMsg));
+			return DAO::getDataChangedEvent();
+		}
+
 		$submissionDao = Application::getSubmissionDAO();
 		$submissionId = $submissionFile->getSubmissionId();
 		$submission = $submissionDao->getById($submissionId);
@@ -96,6 +105,7 @@ class GrobidHandler extends Handler {
 	/**
 	 * @param $filepath string
 	 * @param $mimeType string
+	 * @param $request Request
 	 * @return string|null
 	 *
 	 */
@@ -103,35 +113,54 @@ class GrobidHandler extends Handler {
 		$contextId = $request->getContext()->getId();
 		/* @var $plugin GrobidPlugin */
 		$plugin = $this->_plugin;
-		$url = $plugin->getSetting($contextId, "host") . $plugin::GROBID_SERVICE_API_PATH;
+		$url = trim($plugin->getSetting($contextId, "host")) . $plugin::GROBID_SERVICE_API_PATH;
 
-		$fileContent = file_get_contents($filepath);
-		$boundary = "----" . hash("sha256", random_int(PHP_INT_MIN, PHP_INT_MAX)); // Check for exception? Should be secured?
+		$curl = curl_init();
 
-		// Should work and for https protocol; see HTTP context options
-		$contextOptions = array(
-			"http" => array(
-				"method" => "POST",
-				"header" => "Content-Type: " . "multipart/form-data; boundary=" . $boundary . "\r\n",
-				"content" => $boundary . "\r\n" .
-					"Content-Length: " . filesize($filepath). "\r\n" .
-					"Content-Disposition: form-data; name=\"input\"; filename=\"" . basename($filepath). "\"\r\n" .
-					$fileContent . "\r\n" .
-					$boundary . "\r\n"
-			)
-		);
+		curl_setopt_array($curl, array(
+			CURLOPT_URL => $url,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 1,
+			CURLOPT_TIMEOUT => 5,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => "POST",
+			CURLOPT_POSTFIELDS => array("input" => new CurlFile($filepath, $mimeType)),
+			CURLOPT_HTTPHEADER => array(
+				"Accept: application/xml",
+				"Accept-Charset: utf-8",
+				"Content-Type: multipart/form-data",
+				"Referer: " . $request->getCompleteUrl(),
+				"User-Agent: curl/" . curl_version()["version"]
+			),
 
-		$context = stream_context_create($contextOptions);
+		));
 
-		$response = null;
+		$response = curl_exec($curl);
+		$err = curl_error($curl);
 
-		if (!$fp = fopen($url, "rb", false, $context)) {
+		curl_close($curl);
+
+		if ($err) {
+			error_log("Grobid CURL error: " . $err);
 			return null;
 		} else {
-			$response = stream_get_contents($fp);
-			fclose($fp);
+			return $response;
 		}
 
+	}
+
+	/**
+	 * @param $xml \DOMDocument
+	 * @return bool
+	 */
+	private function _checkXML($xml) {
+		$doctype = $xml->doctype;
+		if (!empty($doctype) && !empty($doctype->systemId) && in_array($doctype->systemId, $this->_plugin::GROBID_RESPONSE_XML_TYPES)) {
+			return true;
+		}
+
+		return false;
 	}
 
 }

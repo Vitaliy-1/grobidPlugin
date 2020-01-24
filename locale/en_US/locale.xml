@@ -17,4 +17,8 @@
 	<message key="plugins.generic.grobid.description">Provides OJS integration with Grobid for transformation of scientific articles to JATS XML.</message>
 	<message key="plugins.generic.grobid.button.parseDocument">Convert with Grobid</message>
 	<message key="grid.action.process">Convert this file with Grobid</message>
+	<message key="plugins.generic.grobid.msg.fileTypeError">This file type is not supported</message>
+	<message key="plugins.generic.grobid.msg.requestFailedError">Connection to Grobid Service has failed, see PHP log for details</message>
+	<message key="plugins.generic.grobid.msg.responseMimeTypeError">Unexpected MIME type of the response</message>
+	<message key="plugins.generic.grobid.msg.responseInvalidXML">Unsupported type of XML in response</message>
 </locale>

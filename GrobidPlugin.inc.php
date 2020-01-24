@@ -21,6 +21,8 @@ class GrobidPlugin extends GenericPlugin {
 
 	const GROBID_SERVICE_API_PATH = "/api/processFulltextDocumentJATS";
 
+	const GROBID_RESPONSE_XML_TYPES = array("https://jats.nlm.nih.gov/publishing/1.2/JATS-journalpublishing1.dtd");
+
 	/**
 	 * @copydoc Plugin::getDisplayName()
 	 */
