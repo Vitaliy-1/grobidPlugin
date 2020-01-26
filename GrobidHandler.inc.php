@@ -122,13 +122,11 @@ class GrobidHandler extends Handler {
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_ENCODING => "",
 			CURLOPT_MAXREDIRS => 1,
-			CURLOPT_TIMEOUT => 5,
+			CURLOPT_TIMEOUT => 60,
 			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			CURLOPT_CUSTOMREQUEST => "POST",
 			CURLOPT_POSTFIELDS => array("input" => new CurlFile($filepath, $mimeType)),
 			CURLOPT_HTTPHEADER => array(
-				"Accept: application/xml",
-				"Accept-Charset: utf-8",
 				"Content-Type: multipart/form-data",
 				"Referer: " . $request->getCompleteUrl(),
 				"User-Agent: curl/" . curl_version()["version"]
