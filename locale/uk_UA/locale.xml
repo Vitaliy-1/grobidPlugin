@@ -17,4 +17,10 @@
 	<message key="plugins.generic.grobid.description">Забезпечує інтегhацію OJS із Grobid для конвертації наукових статей в формат JATS XML.</message>
 	<message key="plugins.generic.grobid.button.parseDocument">Конвертувати за допомогою Grobid</message>
 	<message key="grid.action.process">Конвертувати файл за допомогою Grobid</message>
+
+	<!-- Settings Form -->
+	<message key="plugins.generic.grobid.settings.description">URL до сервера Grobid. Плагін відправляє запит на перетворення документа в Grobid Service API, для більшої інформації перегляньте <![CDATA[
+	<a target="_blank" href="https://grobid.readthedocs.io/en/latest/Grobid-service/">документацію</a>
+	]]></message>
+	<message key="plugins.generic.grobid.settings.grobidUrl">наприклад, https://placegrobidhosthere.com у випадку якщо Grobid встановлено на віддаленому сервері або localhost:8070 у випадку якщо встановлено локально з доступом через порт за замовчуванням</message>
 </locale>

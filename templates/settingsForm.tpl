@@ -22,7 +22,7 @@
 
 	{fbvFormArea id="grobidSettingsFormArea"}
 		{fbvFormSection list=true}
-			{fbvElement type="text" id="host" name="host" value=$host required="true" label="plugins.generic.jatsParser.settings.grobidUrl"}
+			{fbvElement type="text" id="host" name="host" value=$host required="true" label="plugins.generic.grobid.settings.grobidUrl"}
 		{/fbvFormSection}
 	{/fbvFormArea}
 

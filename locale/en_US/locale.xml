@@ -21,4 +21,10 @@
 	<message key="plugins.generic.grobid.msg.requestFailedError">Connection to Grobid Service has failed, see PHP log for details</message>
 	<message key="plugins.generic.grobid.msg.responseMimeTypeError">Unexpected MIME type of the response</message>
 	<message key="plugins.generic.grobid.msg.responseInvalidXML">Unsupported type of XML in response</message>
+
+	<!-- Settings Form -->
+	<message key="plugins.generic.grobid.settings.description">URL to the Grobid Service instance. Plugin is sending a conversion request to Grobid Service API, for more information see <![CDATA[
+	<a target="_blank" href="https://grobid.readthedocs.io/en/latest/Grobid-service/">Grobid's documentation</a>
+	]]></message>
+	<message key="plugins.generic.grobid.settings.grobidUrl">e.g., https://placegrobidhosthere.com if installed on a remote server or localhost:8070 if installed locally on a default port</message>
 </locale>
